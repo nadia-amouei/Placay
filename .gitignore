@@ -39,3 +39,5 @@ dist
 
 # Ignore uploads in uploads folder
 /server/uploads/
+/server/.env.development.local
+/server/.env.production.local
