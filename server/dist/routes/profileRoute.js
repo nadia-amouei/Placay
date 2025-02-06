@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const favoriteController_1 = require("../controllers/favoriteController");
+const profileController_1 = require("../controllers/profileController");
+const asyncHandler_1 = require("../middleware/asyncHandler");
+const authMiddleware_1 = require("../middleware/authMiddleware");
+const router = express_1.default.Router();
+router.get("/likedTour/:userId", authMiddleware_1.authMiddleware, (0, asyncHandler_1.asyncHandler)(profileController_1.getUsersLikedTour));
+router.get("/like/:userId/:tourId", authMiddleware_1.authMiddleware, (0, asyncHandler_1.asyncHandler)(profileController_1.checkLikeTour));
+router.get("/", authMiddleware_1.authMiddleware, (0, asyncHandler_1.asyncHandler)(profileController_1.getProfile));
+router.put("/", authMiddleware_1.authMiddleware, (0, asyncHandler_1.asyncHandler)(profileController_1.updateProfile));
+router.post("/profileimage", authMiddleware_1.authMiddleware, (0, asyncHandler_1.asyncHandler)(profileController_1.uploadProfileImage));
+router.get("/favorite", authMiddleware_1.authMiddleware, (0, asyncHandler_1.asyncHandler)(favoriteController_1.getFavorites));
+router.post("/favorite/", authMiddleware_1.authMiddleware, (0, asyncHandler_1.asyncHandler)(favoriteController_1.postFavorite));
+router.delete("/favorite/:id", authMiddleware_1.authMiddleware, (0, asyncHandler_1.asyncHandler)(favoriteController_1.deleteFavorite));
+exports.default = router;
